@@ -4,8 +4,8 @@
 
 #### Persona: Collection Station
 
-- [ ] Register a New **Collection Station**
-- [ ] List All **Active Collection Materials**
+- [x] Register a New **Collection Station**
+- [x] List All **Active Collection Materials**
 
 #### Persona: User
 

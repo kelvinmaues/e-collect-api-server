@@ -12,4 +12,50 @@ routes.get("/materials", async (req, res) => {
   return res.json(serializedItems);
 });
 
+routes.post("/stations", async (req, resp) => {
+  const {
+    name,
+    email,
+    whatsapp,
+    latitude,
+    longitude,
+    street,
+    neighborhood,
+    zipcode,
+    complement,
+    city,
+    state,
+    materials,
+  } = req.body;
+
+  const trx = await knex.transaction();
+
+  const insertedIds = await trx("stations").insert({
+    image: "img-fale",
+    name,
+    email,
+    whatsapp,
+    latitude,
+    longitude,
+    street,
+    neighborhood,
+    zipcode,
+    complement,
+    city,
+    state,
+    isActive: true,
+  });
+
+  const stationId = insertedIds[0];
+
+  const stationMaterials = materials.map((materialId: number) => ({
+    material_id: materialId,
+    station_id: stationId,
+  }));
+
+  await trx("stations_materials").insert(stationMaterials);
+
+  return resp.json({ success: true });
+});
+
 export default routes;
