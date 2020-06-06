@@ -1,3 +1,24 @@
-export async function up() {}
+import Knex from "knex";
 
-export async function down() {}
+export async function up(knex: Knex) {
+  return knex.schema.createTable("stations", (table) => {
+    table.increments("id").primary();
+    table.string("image").notNullable();
+    table.string("name").notNullable();
+    table.string("email").notNullable();
+    table.string("whatsapp").notNullable();
+    table.decimal("latitude").notNullable();
+    table.decimal("longitude").notNullable();
+    table.string("street").notNullable();
+    table.string("neighborhood").notNullable();
+    table.string("zipcode").notNullable();
+    table.string("complement").notNullable();
+    table.string("city").notNullable();
+    table.string("state").notNullable();
+    table.boolean("isActive").notNullable();
+  });
+}
+
+export async function down(knex: Knex) {
+  return knex.schema.dropTable("stations");
+}
