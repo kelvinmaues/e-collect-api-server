@@ -11,5 +11,5 @@
 
 - [ ] List and View **All Collection Stations** by City/State
 - [ ] List and View **All Collection Stations** by Materials
-- [ ] Get and View **A Collection Station** by Id
+- [x] Get and View **A Collection Station** by Id
 

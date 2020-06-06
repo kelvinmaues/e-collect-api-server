@@ -2,6 +2,28 @@ import { Request, Response } from "express";
 import knex from "../database/connection";
 
 export default class StationController {
+  async show(req: Request, resp: Response) {
+    const { id } = req.params;
+
+    const station = await knex("stations").where("id", id).first();
+
+    if (!station) {
+      return resp.status(400).json({ error: "Station not found" });
+    }
+
+    const materials = await knex("materials")
+      .join(
+        "stations_materials",
+        "materials.id",
+        "=",
+        "stations_materials.material_id"
+      )
+      .where("stations_materials.station_id", id)
+      .select("materials.name");
+
+    return resp.json({ ...station, materials });
+  }
+
   async create(req: Request, resp: Response) {
     const {
       name,
