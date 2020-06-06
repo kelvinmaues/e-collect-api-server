@@ -2,20 +2,15 @@ import express, { response } from "express";
 import knex from "./database/connection";
 // controllers
 import StationController from "./controllers/StationController";
+import MaterialController from "./controllers/MaterialController";
 
 const routes = express.Router();
 
 // instances
 const stationController = new StationController();
+const materialController = new MaterialController();
 
-routes.get("/materials", async (req, res) => {
-  const materials = await knex("materials").select("*");
-  const serializedItems = materials.map((material) => ({
-    ...material,
-    image_url: `http://localhost:3333/uploads/${material.image}`,
-  }));
-  return res.json(serializedItems);
-});
+routes.get("/materials", materialController.index);
 
 routes.post("/stations", stationController.create);
 

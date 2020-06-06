@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import knex from "../database/connection";
 
-class StationController {
+export default class StationController {
   async create(req: Request, resp: Response) {
     const {
       name,
@@ -49,5 +49,3 @@ class StationController {
     return resp.json({ id: stationId, ...station });
   }
 }
-
-export default StationController;
