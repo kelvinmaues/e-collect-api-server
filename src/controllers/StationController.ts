@@ -22,7 +22,7 @@ export default class StationController {
       .distinct()
       .select("stations.*");
 
-      return resp.json(stations);
+    return resp.json(stations);
   }
 
   async show(req: Request, resp: Response) {
@@ -64,8 +64,10 @@ export default class StationController {
     } = req.body;
 
     const trx = await knex.transaction();
+    const station_url =
+      "https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60";
     const station = {
-      image: "img-fale",
+      image: station_url,
       name,
       email,
       whatsapp,
