@@ -2,6 +2,29 @@ import { Request, Response } from "express";
 import knex from "../database/connection";
 
 export default class StationController {
+  async index(req: Request, resp: Response) {
+    const { city, state, materials } = req.query;
+
+    const parsedMaterials = String(materials)
+      .split(",")
+      .map((material) => Number(material.trim()));
+
+    const stations = await knex("stations")
+      .join(
+        "stations_materials",
+        "stations.id",
+        "=",
+        "stations_materials.station_id"
+      )
+      .whereIn("stations_materials.material_id", parsedMaterials)
+      .where("city", String(city))
+      .where("state", String(state))
+      .distinct()
+      .select("stations.*");
+    console.log(stations);
+    return resp.json(stations);
+  }
+
   async show(req: Request, resp: Response) {
     const { id } = req.params;
 

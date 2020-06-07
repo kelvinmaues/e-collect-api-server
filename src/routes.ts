@@ -13,6 +13,7 @@ const materialController = new MaterialController();
 routes.get("/materials", materialController.index);
 
 // station routes
+routes.get("/stations", stationController.index);
 routes.post("/stations", stationController.create);
 routes.get("/stations/:id", stationController.show);
 
@@ -23,5 +24,11 @@ routes.get("/stations/:id", stationController.show);
  * update() => update a data
  * delete() => delete a data
  */
+
+ /** How to use?
+  * req.body = Used to pass data to create or delete something
+  * req.params = Used to return a specific data
+  * req.query = Used to search data that's not specific
+  */
 
 export default routes;
