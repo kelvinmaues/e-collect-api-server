@@ -21,8 +21,8 @@ export default class StationController {
       .where("state", String(state))
       .distinct()
       .select("stations.*");
-    console.log(stations);
-    return resp.json(stations);
+
+      return resp.json(stations);
   }
 
   async show(req: Request, resp: Response) {
@@ -90,6 +90,8 @@ export default class StationController {
     }));
 
     await trx("stations_materials").insert(stationMaterials);
+
+    await trx.commit();
 
     return resp.json({ id: stationId, ...station });
   }
